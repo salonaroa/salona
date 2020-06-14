@@ -1,0 +1,18 @@
+doctype html
+html
+    head
+        title=title
+        include common.pug
+        link(href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet")
+        link(href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css" rel="stylesheet")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js")
+        script(src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async)
+        script MathJax = { chtml: { matchFontHeight: false }, tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } }; hljs.initHighlightingOnLoad();
+        style .markdown-body { box-sizing: border-box; min-width: 200px; max-width: 980px; margin: 0 auto; padding: 45px; } @media (max-width: 767px) { .markdown-body { padding: 15px; } }
+    body
+        .markdown-body
+            h1=title
+            !=content
+        footer(style="text-align: center; margin: 50px 0;")
+            a(rel="license" href="http://creativecommons.org/publicdomain/zero/1.0/")
+                img(src="https://licensebuttons.net/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0")
