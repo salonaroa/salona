@@ -1,0 +1,16 @@
+doctype html
+html
+    head
+        title Salona
+        meta(name="description" content="民主的な検索エンジン")
+        include common.pug
+    body(style="margin: 0; font-family: sans-serif;")
+        #plus(style="text-align: right; padding: 25px 50px 0 0;")
+            a(href="/create"  style="font-size: 30px; font-weight: bold; color: #345; text-decoration: none;") &plus;
+        header(style="font-size: 75px; color: #345; margin: 100px auto 50px auto; text-align: center; -webkit-text-fill-color: white; -webkit-text-stroke-width: 1px; -webkit-text-stroke-color: #789; font-weight: bold;") Salona
+        #search(style="max-width: 575px; height: 50px; margin: 50px auto; padding: 0 25px;")
+            input#query(style="width: 80%; height: 100%; padding: 0 25px; font-size: 16px; color: #345; box-sizing: border-box; border: 1px solid #ccc; border-radius: 25px 0 0 25px; -webkit-appearance: none;")
+            button#button(style="width: 20%; height: 100%; padding: 0; background: white; border: 1px solid #ccc; border-left: none; font-size: 16px; color: #345; border-radius: 0 25px 25px 0; cursor: pointer;") 検索
+        script var query = document.getElementById("query"); query.addEventListener("keyup", function(event) { if (event.keyCode === 13) { event.preventDefault(); window.location.href = "/search?q=" + query.value; } }); var button = document.getElementById("button"); button.addEventListener("click", function(event) { window.location.href = "/search?q=" + query.value; });
+        footer(style="text-align: center; margin: 100px auto 50px auto;")
+            a(href="/salona" style="color: #345; text-decoration: none;") Salonaの仕組み
