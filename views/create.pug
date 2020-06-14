@@ -1,0 +1,17 @@
+doctype html
+html
+    head
+        title 投稿
+        meta(name="robots" content="noindex")
+        include common.pug
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/markdown/markdown.min.js")
+        style body { margin: 0; } .CodeMirror { border: 1px solid #bbb; height: auto; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji; color: #24292e; } .markdown-body { box-sizing: border-box; min-width: 200px; max-width: 980px; margin: 0 auto; padding: 45px; } @media (max-width: 767px) { .markdown-body { padding: 15px; } }
+        script window.onload = () => { let config = { mode: 'markdown', lineWrapping: true, viewportMargin: Infinity, indentUnit: 4 }; let cm = CodeMirror.fromTextArea(document.getElementById('content'), config); let doc = cm.getDoc(); document.getElementById('upload').addEventListener('click', event => { const title = document.getElementById('title').value; const content = doc.getValue(); if (window.confirm('投稿しますか？')) { fetch('/upload', { method: 'POST', body: JSON.stringify({ title: title, content: content }) }).then(response => response.text()).then(data => { location.replace('/'+data); }); } }); }
+    body
+        p#notice(style="text-align: center;")
+        .markdown-body
+            input#title(style="margin: 50px 0; width: 100%; font-size: 16px; height: 50px; border: 1px solid #bbb; box-sizing: border-box; padding: 24px 16px; -webkit-appearance: none;" spellcheck="false")
+            textarea#content
+            button#upload(style="width: 100%; height: 50px; background: white; border: 1px solid #bbb; cursor: pointer; margin: 50px 0; box-sizing: border-box; font-size: 16px; color: #345;") 投稿
