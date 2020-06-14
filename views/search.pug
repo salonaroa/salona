@@ -1,0 +1,30 @@
+doctype html
+html
+    head
+        title=query
+        include common.pug
+        link(href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet")
+        link(href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css" rel="stylesheet")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js")
+        script(src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async)
+        script MathJax = { chtml: { matchFontHeight: false }, tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } }; hljs.initHighlightingOnLoad();
+        style .markdown-body { box-sizing: border-box; min-width: 200px; max-width: 980px; margin: 0 auto; padding: 45px; } @media (max-width: 767px) { .markdown-body { padding: 15px; } }
+    body(style="margin: 0;")
+        header
+            .search-box(style="max-width: 600px; height: 50px; margin: 20px auto; padding: 0 16px;")
+                input#query(value=query style="width: 80%; height: 100%; padding: 0 25px; font-size: 16px; color: #345; box-sizing: border-box; border: 1px solid #ccc; border-radius: 25px 0 0 25px; -webkit-appearance: none;")
+                button#button(style="width: 20%; height: 100%; padding: 0; background: white; border: 1px solid #ccc; border-left: none; font-size: 16px; color: #345; border-radius: 0 25px 25px 0; cursor: pointer;") 検索
+        script var query = document.getElementById("query"); query.addEventListener("keyup", function(event) { if (event.keyCode === 13) { event.preventDefault(); window.location.href = "/search?q=" + query.value; } }); var button = document.getElementById("button"); button.addEventListener("click", function(event) { window.location.href = "/search?q=" + query.value; });
+        hr(style="border-top: 1px solid #ccc; border-bottom: none; margin: 0;")
+        each document in documents
+            .markdown-body
+                h1
+                    a(href="/"+document.id style="color: inherit;")=document.power
+                !=document.content
+            hr(style="border-top: 1px solid #ccc; border-bottom: none; margin: 0;")
+        if documents.length == 10
+            a(href="search?q="+query+"&after="+after style="display: block; text-decoration: none; color: #bbb; height: 50px; width: 50px; margin: 50px auto; border: 1px solid #ccc; text-align: center; line-height: 50px; border-radius: 10px; font-size: 25px; font-weight: bold;")  >
+        if documents.length
+            footer(style="text-align: center; margin: 50px 0;")
+                a(rel="license" href="http://creativecommons.org/publicdomain/zero/1.0/")
+                    img(src="https://licensebuttons.net/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0")
